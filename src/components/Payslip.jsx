@@ -7,9 +7,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownCircleRoundedIcon from "@mui/icons-material/ArrowDropDownCircleRounded";
 import "../styles/payslip.css";
 import Addfields from "./Addfields";
-import { upload } from "@testing-library/user-event/dist/upload";
+//import { upload } from "@testing-library/user-event/dist/upload";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import { BASE_URL } from "./common";
+
+
+
 export const Payslip = () => {
   const [info, setInfo] = useState([]);
   const [epf, setEpf] = useState("");
@@ -49,7 +53,7 @@ export const Payslip = () => {
   let upld = useRef("");
   useEffect(() => {
     const fetchinfo = async () => {
-      let res = await fetch("http://localhost:5000/addEmployee");
+      let res = await fetch(`${BASE_URL}/addEmployee`);
       let data = await res.json();
       setInfo(data.data);
     };
@@ -65,20 +69,22 @@ export const Payslip = () => {
     });
     drop.current.style.visibility = "hidden";
     setPname(empdata[0].ename);
-    let sum = empdata[0].basicpay + empdata[0].HRA;
-    setPid(empdata[0].empid)
-    setTotalEarn("₹" + sum.toString());
+     let sum = empdata[0].basicpay + empdata[0].HRA;
+     setPid(empdata[0].empid)
+     setTotalEarn("₹" + sum.toString());
   };
 
   let navigate = useNavigate();
   const iconClickHandler = () => {
     drop.current.style.visibility = "visible";
   };
+
   useEffect(() => {
     let ded = parseInt(epf) + parseInt(incm);
     let res = (ded && ded) || "0";
     ttlded.current.value = "₹" + res;
   });
+
   useEffect(() => {
     let earnn = parseInt(Hra.current.value) + parseInt(Basic.current.value);
     let ded = parseInt(pf.current.value) + parseInt(incometax.current.value);
@@ -88,25 +94,35 @@ export const Payslip = () => {
     grandtotal.current.textContent = "₹" + finalsum;
     setInWords(converter.toWords(finalsum));
   });
-  let handleAddClick = () => {
+
+  let handleAddClick = () => { 
     setValCheck(true);
   };
+
   let uploadHandler = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setImgg(URL.createObjectURL(e.target.files[0]));
       setValCheck1(true);
     }
   };
+
   let pdfDownld = () => {
     const doc = new jsPDF({ orientation: "portrait" });
     doc.autoTable({
       html: "#tbslip",
     });
-    doc.save("Payslip.pdf");
+    if(comp&&pname&&pid&&grandtotal.current.textContent){
+      doc.save("Payslip.pdf");
+    }
+    else{
+      alert("required field must have input value")
+    }
   };
+
   let sendData = (extrainfo) => {
     setExtraData(extrainfo);
   };
+
   return (
     <div>
       <div className="sec1">
@@ -195,7 +211,7 @@ export const Payslip = () => {
         </h2>
         <div className="ip ip-A">
           <div className="ichild">
-            <label htmlFor="name">Emploeee</label>
+            <label htmlFor="name">Emploeee*</label>
             <span style={{ position: "relative", right: "-0.3rem" }}>:</span>
             <input
               type="text"
@@ -203,7 +219,7 @@ export const Payslip = () => {
               id=""
               ref={optn}
               value={pname}
-
+               required
               style={{ position: "relative", left: "1.2rem" }}
               onChange={(e) => {
                 setPname(e.target.value);
@@ -234,11 +250,12 @@ export const Payslip = () => {
             </div>
           </div>
           <div className="ichild">
-            <label htmlFor="">Employee ID</label>
+            <label htmlFor="">Employee ID*</label>
             <span style={{ position: "relative", right: "1rem" }}>:</span>
             <input
+            required
               type="text"
-              placeholder="Eg:1234"
+              placeholder="Eg:1234*"
               name="empID"
               value={pid}
               onChange={(e) => {
@@ -321,7 +338,7 @@ export const Payslip = () => {
             </span>{" "}
           </div>
           <div className="ichild1">
-            <label htmlFor="" defaultValue={infodetails.basicpay}>
+            <label htmlFor="" defaultValue={infodetails.basicpay&&infodetails.basicpay}>
               Basic
             </label>{" "}
             <input
@@ -331,7 +348,7 @@ export const Payslip = () => {
               ref={Basic}
               type="number"
               placeholder="0"
-              defaultValue={infodetails.basicpay}
+              defaultValue={infodetails.basicpay&&infodetails.basicpay}
             />
           </div>
           <div className="ichild1">
@@ -354,7 +371,7 @@ export const Payslip = () => {
               ref={Hra}
               type="number"
               placeholder="0"
-              defaultValue={infodetails.HRA}
+              defaultValue={infodetails.HRA&&infodetails.HRA}
             />
           </div>
           <div className="ichild1">
@@ -370,13 +387,16 @@ export const Payslip = () => {
             />{" "}
           </div>
           <div className="ichild1" style={{ backgroundColor: "#f9f9fb" }}>
-            <label htmlFor="">Gross Earnings</label>{" "}
+            <label htmlFor="">Gross Earnings*</label>{" "}
             <input
               type="text"
               className="grsearn"
-              placeholder="₹0"
+              placeholder="₹0*"
               ref={ttlearn}
               value={totalearn}
+              onChange={(e) => {
+                setTotalEarn(e.target.value);
+              }}
             />
           </div>
           <div className="ichild1" style={{ backgroundColor: "#f9f9fb" }}>
@@ -513,7 +533,7 @@ export const Payslip = () => {
 
           <tr>
             <th>totalearning:</th>
-            <th>{grandtotal.current.textContent}</th>
+            <td>{grandtotal.current.textContent}</td>
           </tr>
         </table>
       </div>

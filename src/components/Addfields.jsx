@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../styles/addfields.css";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+
 function Addfields(props) {
   const [inputList, setInputList] = useState([{ name: "", value: "" }]);
   let bt = useRef("");

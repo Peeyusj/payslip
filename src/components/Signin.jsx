@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { BASE_URL } from "./common";
 
 const Signin = (props) => {
   let navigate = useNavigate();
 
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
+
   let ipHandler1 = (e) => {
     setInput1(e.target.value);
   };
+
   let ipHandler2 = (e) => {
     setInput2(e.target.value);
   };
+
   let submitHandler = (e) => {
     e.preventDefault();
 
@@ -24,7 +28,7 @@ const Signin = (props) => {
       email: input1,
       password: input2,
     };
-    fetch("http://localhost:5000/login", {
+    fetch(`${BASE_URL}/login`, {
       method: "Post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -94,8 +98,11 @@ const Signin = (props) => {
           <Button color="success" variant="contained" type={"submit"}>
             Signin
           </Button>
+          <Link to="/signup"  style={{margin:"1%",color:"black"}}>Register here</Link>
         </Box>
+        
       </form>
+      
     </div>
   );
 };

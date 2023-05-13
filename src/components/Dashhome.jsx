@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "./common";
 const Dashhome = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
     let loged = window.localStorage.getItem("islogedin");
-    !loged && navigate("/signin");
-  }, []);
+    !loged&&navigate("/signin");
+  }, [navigate]);                                      //check 
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
@@ -45,7 +46,7 @@ const Dashhome = () => {
     };
     console.log(data);
 
-    fetch("http://localhost:5000/addEmployee", {
+    fetch(`${BASE_URL}/addEmployee`, {
       method: "Post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

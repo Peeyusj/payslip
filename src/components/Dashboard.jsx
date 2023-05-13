@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Dashhome from "./Dashhome";
 import { Payslip } from "./Payslip";
 import Drawerp from "./Drawerp";
+import { BASE_URL } from "./common";
 
 const Dashboard = () => {
   const [info, setInfo] = useState({ name: "", email: "" });
@@ -15,7 +16,7 @@ const Dashboard = () => {
     window.location.reload();
   };
   useEffect(() => {
-    fetch("http://localhost:5000/userData", {
+    fetch(`${BASE_URL}/userData`, {
       method: "Post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: window.localStorage.getItem("token") }),
