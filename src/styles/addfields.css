@@ -1,0 +1,83 @@
+.addfields {
+  display: flex;
+  flex-wrap: wrap;
+  width: 98%;
+  margin-top: 12px;
+}
+.box {
+  min-height: max-content;
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ipone {
+  height: 1.2rem;
+  width: 30%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-decoration: dashed;
+  font-size: 1.2rem;
+}
+.ipone:focus {
+  border-bottom: 1px solid gray;
+}
+.ipone:hover {
+  border-bottom: 1px solid gray;
+}
+
+.iptwo {
+  position: relative;
+  top: -2px;
+  height: 1.2rem;
+  width: 30%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid gray;
+  text-decoration: dashed;
+  font-size: 1 rem;
+  width: 25%;
+}
+.ipone:focus {
+  background-color: transparent;
+}
+.box input:hover {
+  border: 2px solid #0275d8;
+  border-radius: 5px;
+}
+.mr10 {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  left: 25rem;
+  bottom: 1.6rem;
+  visibility: hidden;
+}
+.id1:hover .mr10 {
+  visibility: visible;
+}
+.pp {
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 20px;
+}
+.buttadd {
+  display: block;
+  position: relative;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #0275d8;
+  font-size: 1.1rem;
+}
+.buttadd:hover {
+  text-decoration: underline;
+}
+.buttadd svg {
+  position: relative;
+  top: 6px;
+}

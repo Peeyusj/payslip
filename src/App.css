@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+.mobileview{
+  flex: 1;
+}
+.togbtn{
+  display:none;
+  
+}
+@media screen and (max-width:600px){
+  .mobileview{
+    display:none;
+  }
+  .togbtn{
+    display: block;
+  }
+}
