@@ -10,7 +10,7 @@ function App() {
   return (
   <BrowserRouter>
         <Routes>
-            <Route path='/signup' element={isloggedin=="true"?<Dashboard/>:<Signup/>}/>
+            <Route path='/payslip' element={isloggedin=="true"?<Dashboard/>:<Signup/>}/>
             <Route path='/signin' element={isloggedin=="true"?<Dashboard/>:<Signin />}/>
             <Route path='/home/*' element={<  Dashboard  />}/>
             

@@ -98,7 +98,7 @@ const Signin = (props) => {
           <Button color="success" variant="contained" type={"submit"}>
             Signin
           </Button>
-          <Link to="/signup"  style={{margin:"1%",color:"black"}}>Register here</Link>
+          <Link to="/payslip"  style={{margin:"1%",color:"black"}}>Register here</Link>
         </Box>
         
       </form>
